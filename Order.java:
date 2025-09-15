@@ -1,0 +1,56 @@
+import java.util.*;
+public class Order {
+    private String orderId;
+    private Subscriber subscriber;
+    private int weekOfYear;
+    private Map<String, Integer> selectedMeals; // mealId → quantity
+    private String status;
+    private double total;
+
+    public Order(String orderId, Subscriber subscriber, int weekOfYear) {
+        this.orderId = orderId;
+        this.subscriber = subscriber;
+        this.weekOfYear = weekOfYear;
+        this.selectedMeals = new HashMap<>();
+        this.status = "CREATED";
+        this.total = 0.0;
+    }
+
+    public void addMeal(String mealId) {
+        selectedMeals.put(mealId, selectedMeals.getOrDefault(mealId, 0) + 1);
+    }
+
+    public void addMeal(String mealId, int portionSize) {
+        selectedMeals.put(mealId, selectedMeals.getOrDefault(mealId, 0) + portionSize);
+    }
+
+    public void applyCoupon(String code) {
+        if (code.equals("DISCOUNT10")) {
+            total *= 0.9;
+        }
+    }
+
+    public void computeTotal() {
+        total = subscriber.getActivePlan().computeTotal();
+    }
+
+    public void dispatch() {
+        status = "DISPATCHED";
+    }
+
+    public void markDelivered() {
+        status = "DELIVERED";
+    }
+
+    public double getTotal() { return total; }
+    public String getStatus() { return status; }
+    public Map<String, Integer> getSelectedMeals() { return selectedMeals; }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public Subscriber getSubscriber() {
+        return subscriber;
+    }
+}
