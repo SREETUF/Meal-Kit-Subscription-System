@@ -1,0 +1,26 @@
+public class Subscriber {
+    private String id;
+    private String name;
+    private String email;
+    private String deliveryAddress;
+    private Plan activePlan;
+
+    public Subscriber(String id, String name, String email, String deliveryAddress, Plan activePlan) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.deliveryAddress = deliveryAddress;
+        this.activePlan = activePlan;
+    }
+
+    public String getId() { return id; }
+    public Plan getActivePlan() { return activePlan; }
+
+    public void setActivePlan(Plan activePlan) {
+        this.activePlan = activePlan;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
