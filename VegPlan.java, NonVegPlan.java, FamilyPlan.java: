@@ -1,0 +1,49 @@
+import java.util.List;
+
+public class VegPlan extends Plan {
+    public VegPlan(String planId, int mealsPerWeek, double pricePerMeal, List<String> cuisinePrefs) {
+        super(planId, "Veg Plan", mealsPerWeek, pricePerMeal, cuisinePrefs);
+    }
+
+    @Override
+    public double computeTotal() {
+        return (mealsPerWeek * pricePerMeal) + deliveryFee();
+    }
+
+    @Override
+    public double deliveryFee() {
+        return 3.0;
+    }
+}
+
+public class NonVegPlan extends Plan {
+    public NonVegPlan(String planId, int mealsPerWeek, double pricePerMeal, List<String> cuisinePrefs) {
+        super(planId, "Non-Veg Plan", mealsPerWeek, pricePerMeal, cuisinePrefs);
+    }
+
+    @Override
+    public double computeTotal() {
+        return (mealsPerWeek * pricePerMeal) + deliveryFee();
+    }
+
+    @Override
+    public double deliveryFee() {
+        return 6.0;
+    }
+}
+
+public class FamilyPlan extends Plan {
+    public FamilyPlan(String planId, int mealsPerWeek, double pricePerMeal, List<String> cuisinePrefs) {
+        super(planId, "Family Plan", mealsPerWeek, pricePerMeal, cuisinePrefs);
+    }
+
+    @Override
+    public double computeTotal() {
+        return (mealsPerWeek * pricePerMeal * 1.1) + deliveryFee(); // 10% surcharge
+    }
+
+    @Override
+    public double deliveryFee() {
+        return 0.0; // Free delivery for family
+    }
+}
