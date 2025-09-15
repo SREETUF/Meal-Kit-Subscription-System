@@ -1,0 +1,31 @@
+import java.util.List;
+
+public abstract class Plan {
+    protected String planId;
+    protected String name;
+    protected int mealsPerWeek;
+    protected double pricePerMeal;
+    protected List<String> cuisinePrefs;
+
+    public Plan(String planId, String name, int mealsPerWeek, double pricePerMeal, List<String> cuisinePrefs) {
+        this.planId = planId;
+        this.name = name;
+        this.mealsPerWeek = mealsPerWeek;
+        this.pricePerMeal = pricePerMeal;
+        this.cuisinePrefs = cuisinePrefs;
+    }
+
+    public String getPlanId() { return planId; }
+    public String getName() { return name; }
+    public int getMealsPerWeek() { return mealsPerWeek; }
+    public double getPricePerMeal() { return pricePerMeal; }
+    public List<String> getCuisinePrefs() { return cuisinePrefs; }
+
+    public void setMealsPerWeek(int mealsPerWeek) { this.mealsPerWeek = mealsPerWeek; }
+
+    public abstract double computeTotal();
+
+    public double deliveryFee() {
+        return 5.0;
+    }
+}
