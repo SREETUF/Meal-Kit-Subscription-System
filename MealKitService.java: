@@ -1,0 +1,55 @@
+import java.util.*;
+
+public class MealKitService {
+    private Map<String, String> menu; // mealId -> mealName
+    private List<Order> orders;
+    private Map<String, Integer> mealPopularity;
+
+    public MealKitService() {
+        menu = new HashMap<>();
+        orders = new ArrayList<>();
+        mealPopularity = new HashMap<>();
+    }
+
+    public void createMenu() {
+        menu.put("M101", "Pasta");
+        menu.put("M102", "Salad");
+        menu.put("M103", "Chicken Curry");
+        menu.put("M104", "Paneer Tikka");
+    }
+
+    public Order createOrder(String orderId, Subscriber subscriber, int weekOfYear) {
+        Order order = new Order(orderId, subscriber, weekOfYear);
+        orders.add(order);
+        return order;
+    }
+
+    public void scheduleDelivery(Order order) {
+        order.dispatch();
+        System.out.println("Order " + order.getOrderId() + " dispatched to " + order.getSubscriber().getName());
+    }
+
+    public void recordMealPopularity(Order order) {
+        for (String mealId : order.getSelectedMeals().keySet()) {
+            int count = order.getSelectedMeals().get(mealId);
+            mealPopularity.put(mealId, mealPopularity.getOrDefault(mealId, 0) + count);
+        }
+    }
+
+    public void printWeeklyRevenueReport() {
+        double revenue = 0.0;
+        for (Order o : orders) {
+            if (o.getStatus().equals("DELIVERED")) {
+                revenue += o.getTotal();
+            }
+        }
+        System.out.println("Weekly Revenue: $" + revenue);
+    }
+
+    public void printMealPopularityReport() {
+        System.out.println("Meal Popularity:");
+        for (Map.Entry<String, Integer> entry : mealPopularity.entrySet()) {
+            System.out.println(menu.get(entry.getKey()) + ": " + entry.getValue());
+        }
+    }
+}
